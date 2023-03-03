@@ -2,7 +2,7 @@ node('UBUNTU_NODE1'){
     stage('vcs'){
         git branch: 'scripted', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
     }
-    stage('build') {
+    stage('build'){
         sh 'mvn package'
     }
     stage('archiving artifacts'){
