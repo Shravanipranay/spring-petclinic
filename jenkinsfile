@@ -3,7 +3,6 @@ node('UBUNTU_NODE1'){
         git branch: 'scripted', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
     }
     stage('build') {
-        sh 'export PATH=$PATH:/opt/mvn/bin'
         sh 'mvn package'
     }
     stage('archiving artifacts'){
