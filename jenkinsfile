@@ -7,6 +7,6 @@ node('UBUNTU_NODE1'){
     }
     stage('archiving artifacts'){
         archiveArtifacts artifacts : '**/spring-petclinic-3.0.0-SNAPSHOT.jar'
-        junit: '**/*.xml'
+                         junit '**/*.xml'
     }
 }
