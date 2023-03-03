@@ -1,0 +1,13 @@
+node('UBUNTU_NODE1'){
+    stage('vcs'){
+        git url: 'https://github.com/Shravanipranay/spring-petclinic.git'
+    }
+    stage('build') {
+        sh 'export PATH=$PATH:$/opt/maven/bin'
+        sh 'mvn package'
+    }
+    stage('archiving artifacts'){
+        archiveArtifacts artifacts : '**/spring-petclinic-3.0.0-SNAPSHOT.jar'
+        junit: '**/*.xml'
+    }
+}
