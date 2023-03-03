@@ -1,6 +1,7 @@
 node('UBUNTU_NODE1'){
     stage('vcs'){
         git url: 'https://github.com/Shravanipranay/spring-petclinic.git'
+        branch : 'scripted'
     }
     stage('build') {
         sh 'export PATH=$PATH:$/opt/maven/bin'
