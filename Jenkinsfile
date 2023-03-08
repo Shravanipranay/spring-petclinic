@@ -19,7 +19,7 @@ pipeline {
                 archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
           }
         }
-    post{
+    post {
         success{
             mail subject: 'Jenkins Build of ${JOB_NAME} with build id ${Build_ID} is success'
                     body: 'Use this url ${BUILD_URL} for more info'
