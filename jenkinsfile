@@ -1,4 +1,4 @@
-node('UBUNTU_NODE1'){
+node('jfrog_1'){
     stage('vcs'){
         git branch: 'declarative', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
     }
