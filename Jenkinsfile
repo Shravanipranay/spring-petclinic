@@ -17,7 +17,7 @@ pipeline {
         stage('artifactory'){
             steps{
                 archiveArtifacts artifacts: '**/spring-petclinic-3.0.0-SNAPSHOT.jar'
-                             onlyIfSuccessful: 'yes'
+                                 onlyIfSuccessful: 'yes'
             }
         }
           
