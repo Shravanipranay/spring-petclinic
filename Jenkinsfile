@@ -8,7 +8,7 @@ pipeline {
         }
         stage('build'){
             steps {
-                sh '/opt/maven/bin/mvn package'
+                sh './gradlew build'
             }
         }
         stage('artifacts'){
