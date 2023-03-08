@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jfrog_node1' }
+    agent { label 'jfrog_1' }
     stages {
         stage('git'){
             steps {
