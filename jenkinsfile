@@ -11,7 +11,7 @@ node('jfrog_1'){
     }
     stage('craeting folder'){
         sh "mkdir -p /tmp/${JOB_NAME}/${BUILD_ID}"
-        sh "cp **/spring-petclinic-*.jar /tmp/${JOB_NAME}/${BUILD_ID}"
+        sh "cp -r **/spring-petclinic-*.jar /tmp/${JOB_NAME}/${BUILD_ID}"
         sh "aws s3 sync /tmp/${JOB_NAME}/${BUILD_ID} s3://jenkins789"
     }
 }
