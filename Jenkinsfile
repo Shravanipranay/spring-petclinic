@@ -8,7 +8,10 @@ pipeline {
         }
         stage('build'){
             steps {
-                sh '/opt/maven/bin/mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shravani_myproject -Dsonar.organization=shravani'
+                withSonarQubeEnv('sonarqube'){
+                    sh '/opt/maven/bin/mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shravani_myproject -Dsonar.organization=shravani'
+                    
+                }        
                 
             }
         }
