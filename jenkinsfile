@@ -1,6 +1,6 @@
 node('UBUNTU_NODE1'){
     stage('vcs'){
-        git branch: 'scripted', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
+        git branch: 'declarative', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
     }
     stage('build'){
         sh '/opt/maven/bin/mvn package'
@@ -8,5 +8,11 @@ node('UBUNTU_NODE1'){
     stage('archiving artifacts'){
         archiveArtifacts artifacts : '**/spring-petclinic-3.0.0-SNAPSHOT.jar'
                          junit '**/*.xml'
+    }
+    stage('craeting folder'){
+        FOLDER="/tmp/${JOB_NAME}/${BUILD_ID}" 
+        sh mkdir -p "${FOLDER}"
+        sh "cp **/spring-petclinic-*.jar ${FOLDER}"
+        sh "aws s3 sync **/${FOLDER} s3://jenkins789"
     }
 }
