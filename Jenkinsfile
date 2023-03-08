@@ -16,7 +16,7 @@ pipeline {
             }
         stage('artifactory'){
             steps{
-                archiveArtifacts artifacts: '/home/ubuntu/workspace/workspace/gradle-spc/build/libs/spring-petclinic-3.0.0.jar'
+                archiveArtifacts artifacts: '**/spring-petclinic-*'
             }
         }
           
