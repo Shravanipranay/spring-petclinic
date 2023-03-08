@@ -17,8 +17,7 @@ pipeline {
         stage('artifactory'){
             steps{
                 archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
-                mail: 
-         }
+          }
         }
         post('sending mail'){
            success{
