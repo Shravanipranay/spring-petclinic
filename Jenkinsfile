@@ -34,9 +34,6 @@ pipeline {
             }
         }
         stage('package') {
-            tools {
-                jdk 'JDK_17'
-            }
             steps {
                 sh "mvn ${params.MAVEN_GOAL}"
                 rtMavenRun (
