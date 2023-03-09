@@ -34,25 +34,4 @@ pipeline {
                 )
             }
         }
-            steps {
-                sh "mvn ${params.MAVEN_GOAL}"
-                  rtMavenRun (
-                      tool: 'MAVEN_DEFAULT',
-                      pom: 'pom.xml',
-                      goals: 'clean install',
-                      deployerId: "MAVEN_DEPLOYER"
-
-                )
-                rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
-                )
-            }
-        }
-        stage('post build') {
-            steps {
-                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
-                                 onlyIfSuccessful: true
-                junit testResults: '**/surefire-reports/TEST-*.xml'
-            }
-         }
-    }
+            
