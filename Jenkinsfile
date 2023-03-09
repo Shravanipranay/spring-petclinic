@@ -38,7 +38,7 @@ pipeline {
                 sh "/opt/maven/bin/mvn ${params.MAVEN_GOAL}"
                 rtMavenRun (
                     tool: 'MAVEN_DEFAULT',
-                    pom: 'pom.xml',
+                    pom:  'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER"
 
