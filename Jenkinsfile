@@ -35,7 +35,7 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh "mvn ${params.MAVEN_GOAL}"
+                sh "/opt/maven/bin/mvn ${params.MAVEN_GOAL}"
                 rtMavenRun (
                     tool: 'MAVEN_DEFAULT',
                     pom: 'pom.xml',
