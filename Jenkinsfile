@@ -11,7 +11,7 @@ pipeline {
                     branch: 'spcdeclarative'
             }
         }
-        stage ('Artifactory configuration') {
+        stage('Artifactory configuration') {
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
@@ -36,11 +36,11 @@ pipeline {
         }
             steps {
                 sh "mvn ${params.MAVEN_GOAL}"
-                rtMavenRun (
-                    tool: 'MAVEN_DEFAULT',
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    deployerId: "MAVEN_DEPLOYER"
+                  rtMavenRun (
+                      tool: 'MAVEN_DEFAULT',
+                      pom: 'pom.xml',
+                      goals: 'clean install',
+                      deployerId: "MAVEN_DEPLOYER"
 
                 )
                 rtPublishBuildInfo (
@@ -48,11 +48,11 @@ pipeline {
                 )
             }
         }
-        stage ('post build') {
+        stage('post build') {
             steps {
                 archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
                                  onlyIfSuccessful: true
                 junit testResults: '**/surefire-reports/TEST-*.xml'
             }
-        }
+         }
     }
