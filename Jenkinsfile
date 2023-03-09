@@ -34,6 +34,25 @@ pipeline {
                 )
             }
         }
+        stage('package') {
+            tools {
+                jdk 'JDK_17'
+            }
+            steps {
+                sh "mvn ${params.MAVEN_GOAL}"
+                rtMavenRun (
+                    tool: 'MAVEN_DEFAULT',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER"
+
+                )
+                rtPublishBuildInfo (
+                    serverId: "Jfrog_today"
+                )
+            }
+        }
+    
     }        
 }
 
