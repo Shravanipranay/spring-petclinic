@@ -47,7 +47,7 @@ pipeline {
                     serverId: "Jfrog_today"
                 )
             }
-        }
+        }      
     
     }        
 }
