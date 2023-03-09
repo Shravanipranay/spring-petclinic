@@ -1,20 +1,62 @@
 pipeline {
-    agent { label 'UBUNTU_NODE1' }
+    agent { label 'jfrog_1' }
+    triggers { pollSCM ('* * * * *') }
+    parameters {
+        choice(name: 'MAVEN_GOAL', choices: ['package', 'install', 'clean'], description: 'Maven Goal')
+    }
     stages {
-        stage('git'){
+        stage('vcs') {
             steps {
-                git branch: 'scripted', url: 'https://github.com/Shravanipranay/spring-petclinic.git'
+                git url: 'https://github.com/Shravanipranay/spring-petclinic.git',
+                    branch: 'spcdeclarative'
             }
         }
-        stage('build'){
+        stage ('Artifactory configuration') {
             steps {
-                sh './gradlew build'
+                rtServer (
+                    id: "ARTIFACTORY_SERVER",
+                    url: 'https://shravani032.jfrog.io/artifactory',
+                    credentialsId: 'Jfrog_today'
+                )
+
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
+
+                rtMavenResolver (
+                    id: "MAVEN_RESOLVER",
+                    serverId: "ARTIFACTORY_SERVER",
+                    releaseRepo: 'libs-release',
+                    snapshotRepo: 'libs-snapshot'
+                )
             }
         }
-        stage('artifacts'){
+        stage('package') {
+            tools {
+                jdk 'JDK_17'
+            }
             steps {
-                archiveArtifacts artifacts : '**/spring-petclinic-3.0.0-SNAPSHOT.jar'
-                                 junit '**/*.xml'
+                sh "mvn ${params.MAVEN_GOAL}"
+                rtMavenRun (
+                    tool: 'MAVEN_DEFAULT',
+                    pom: 'pom.xml',
+                    goals: 'clean install',
+                    deployerId: "MAVEN_DEPLOYER"
+
+                )
+                rtPublishBuildInfo (
+                    serverId: "ARTIFACTORY_SERVER"
+                )
+            }
+        }
+        stage('post build') {
+            steps {
+                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
+                                 onlyIfSuccessful: true
+                junit testResults: '**/surefire-reports/TEST-*.xml'
             }
         }
     }
