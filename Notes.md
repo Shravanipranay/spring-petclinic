@@ -83,6 +83,12 @@ nodeGroups:
 For deleting the cluster eksctl delete cluster --name=<name> [--region=<region>]
 example: ``eksctl delete cluster --name=mycluster --region=eu-west-3``
 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip
+ unzip awscliv2.zip
+ sudo ./aws/install
+
+
 
 
 
