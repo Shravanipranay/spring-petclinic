@@ -7,10 +7,15 @@ COPY --from=vcs /spring-petclinic /spring-petclinic
 RUN ls /spring-petclinic 
 RUN cd /spring-petclinic && mvn package
 
+
+
 FROM amazoncorretto:17-alpine-jdk
-WORKDIR /spc
-COPY --from=builder /spring-petclinic/target/spring-petclinic-*.jar /spc/spring-petclinic
+LABEL author="shravani"
 EXPOSE 8080
-CMD ["java" , "-jar" , "springpetclinic-*.jar"]
+ARG HOME_DIR=/spc
+WORKDIR ${HOME_DIR}
+COPY --from=builder /spring-petclinic/target/spring-*.jar ${HOME_DIR}/spring-petclinic.jar
+EXPOSE 8080
+CMD ["java", "-jar", "spring-petclinic.jar"]
 
 

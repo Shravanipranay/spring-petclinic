@@ -22,8 +22,8 @@ pipeline{
         stage('docker'){
             steps{
                 sh 'sudo docker image build -t spc .'
-                sh 'sudo docker image tag spc shravanipranay/spc:latest1'
-                sh 'sudo docker image push shravanipranay/spc:latest1'
+                sh 'sudo docker image tag spc shravanipranay/spc:latest2'
+                sh 'sudo docker image push shravanipranay/spc:latest2'
             }
         }
         stage('deployment'){
