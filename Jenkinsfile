@@ -21,9 +21,9 @@ pipeline{
         }
         stage('docker'){
             steps{
-                sh 'docker image build -t spc:v1.0.0 .'
-                sh 'docker image tag spc:v1.0.0 shravanipranay/spc:$BUILD_NUMBER'
-                sh 'docker image push shravanipranay/spc:$BUILD_NUMBER'
+                sh 'sudo docker image build -t spc:v1.0.0 .'
+                sh 'sudo docker image tag spc:v1.0.0 shravanipranay/spc:$BUILD_NUMBER'
+                sh 'sudo docker image push shravanipranay/spc:$BUILD_NUMBER'
             }
         }
         stage('deployment'){

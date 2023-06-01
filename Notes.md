@@ -15,7 +15,7 @@ sudo apt-get update
 sudo apt-get install jenkins -y
 ```
 * Set password for jenkins by using ``passwd jenkins``
-* Add the jenkins user into the sudoers file ``jenkins ALL(ALL=ALL) NOPASSWD:ALL
+* Add the jenkins user into the sudoers file ``jenkins ALL=(ALL:ALL) NOPASSWD:ALL
 * su jenkins
 
 
