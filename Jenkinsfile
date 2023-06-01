@@ -15,7 +15,8 @@ pipeline{
         stage("junit"){
             steps{
                 archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
-                junit '**/*.xml'
+									onlyIfSuccessful: true
+				junit testResults: '**/surefire-reports/TEST-*.xml'
             }
         }
         stage('docker'){
