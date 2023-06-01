@@ -18,7 +18,7 @@ spec:
     spec:
       containers: 
         - name: spc-cont
-          image: shravanipranay/spc:latest
+          image: shravanipranay/spc:latest1
           ports :
             - containerPort: 8080    
 
