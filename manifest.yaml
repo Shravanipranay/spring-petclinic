@@ -21,7 +21,7 @@ spec:
   spec:
     containers:
       - name: spc-container
-        image: lakshminarayana1849/springpetclinic
+        image: shravanipranay/spc:finalimage
         ports:
           - containerPort: 8080
         livenessProbe:

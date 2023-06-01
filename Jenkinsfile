@@ -3,8 +3,8 @@ pipeline{
     stages{
         stage('VCS'){
             steps{
-                 git url:
-                 branch: main
+                 git url: 'https://github.com/Shravanipranay/spring-petclinic.git'
+                 branch: 'ci-cd'
             }
         }
         stage('build'){
@@ -21,13 +21,14 @@ pipeline{
         stage('docker'){
             steps{
                 sh 'docker image build -t spc:v1.0.0 .'
-                sh 'docker image tag spc:v1.0.0 shravanipranay/spc:latest'
-                sh 'docker image push shravanipranay/spc:latest'
+                sh 'docker image tag spc:v1.0.0 shravanipranay/spc:$BUILD_NUMBER'
+                sh 'docker image push shravanipranay/spc:$BUILD_NUMBER'
             }
         }
         stage('deployment'){
             steps{
-                sh 'kubectl apply -f spc-manifest.yaml'
+                sh 'kubectl edit set image shravanipranay/spc:finalimage=shravanipranay/spc:$BUILD_NUMBER'
+                sh 'kubectl apply -f manifest.yaml'
                 sh 'kubectl get all'
             }
         }
