@@ -3,8 +3,8 @@ pipeline{
     stages{
         stage('VCS'){
             steps{
-                 git url: 'https://github.com/Shravanipranay/spring-petclinic.git'
-                     branch: 'ci-cd'
+                git url: 'https://github.com/Shravanipranay/spring-petclinic.git',
+                    branch: 'ci-cd'
             }
         }
         stage('build'){
@@ -14,7 +14,7 @@ pipeline{
         }
         stage("junit"){
             steps{
-                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar'
+                archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar',
                 junit '**/*.xml'
             }
         }
